@@ -3,5 +3,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def home(request):
-    return HttpResponse("Hello welcome to home")
+def organizer_dashboard(request):
+    context = {
+
+    }
+    return render(request, "dashboard.html", context)   

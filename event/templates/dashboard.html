@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>Organizer Dashboard</title>
+</head>
+<body>
+    {% comment %} nav bar section {% endcomment %}
+    <nav class="bg-sky-500 text-white">
+        <ul class="flex justify-center gap-10 list-none p-3 text-xl font-bold">
+            <li><a href="{% url 'organizer-dashboard' %}">Home</a></li>
+            <li>Organizer Menu</li>
+            <li>Login</li>
+        </ul>
+    </nav>
+</body>
+</html>
