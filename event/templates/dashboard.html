@@ -9,12 +9,46 @@
 </head>
 <body>
     {% comment %} nav bar section {% endcomment %}
-    <nav class="bg-sky-500 text-white">
-        <ul class="flex justify-center gap-10 list-none p-3 text-xl font-bold">
-            <li><a href="{% url 'organizer-dashboard' %}">Home</a></li>
-            <li>Organizer Menu</li>
-            <li>Login</li>
-        </ul>
-    </nav>
+    {% include "navbar.html" %}
+    {% comment %} stats section {% endcomment %}
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-5">
+        {% comment %} card {% endcomment %}
+        <a href="">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
+                <h2 class="text-3xl font-bold ">Total Participant</h2>
+                <p class="text-center text-3xl font-bold">100</p>
+            </div>
+        </a>
+       
+        {% comment %} card {% endcomment %}
+        <a href="">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
+                <h2 class="text-3xl font-bold ">Total Events</h2>
+                <p class="text-center text-3xl font-bold">100</p>
+            </div>
+        </a>
+       
+        {% comment %} card {% endcomment %}
+        <a href="">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
+                <h2 class="text-3xl font-bold ">Upcoming Event</h2>
+                <p class="text-center text-3xl font-bold">100</p>
+            </div>
+        </a>
+       
+        {% comment %} card {% endcomment %}
+        <a href="">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
+                <h2 class="text-3xl font-bold ">Past Events</h2>
+                <p class="text-center text-3xl font-bold">100</p>
+            </div>
+        </a>
+    </section>
+
+    {% comment %} table {% endcomment %}
+    <section>
+        
+    </section>
 </body>
 </html>

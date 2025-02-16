@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="bg-sky-500 text-white">
+    <ul class="flex justify-center gap-10 list-none p-3 text-xl font-bold">
+        <li><a href="{% url 'home-page' %}">Home</a></li>
+        <li><a href="{% url 'organizer-dashboard' %}">Organizer Dashboard</a></li>
+        <li>Search Event</li>
+    </ul>
+</nav>    
+</body>
+</html>
