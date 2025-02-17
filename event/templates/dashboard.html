@@ -47,8 +47,29 @@
     </section>
 
     {% comment %} table {% endcomment %}
-    <section>
-        
+    <section class="md:w-4/5 lg:w-11/12 m-auto text-center">
+        <table class="table-auto border border-collapse border-black w-full text-xl rounded-md">
+            <thead class="border border-black bg-blue-400 text-white">
+                <th>Name</th>
+                <th>Category</th>
+                <th>location</th>
+                <th>Date</th>
+                <th>Action</th>
+            </thead>
+
+            <tbody>
+                <tr class="">
+                    <td>Birthday party</td>
+                    <td>Birthday</td>
+                    <td>Dhaka</td>
+                    <td>2025-10-11</td>
+                    <td>
+                        <button class="bg-yellow-500 text-white p-2 rounded-lg font-semibold">Update</button>
+                        <button class="bg-red-600 text-white p-2 rounded-lg font-semibold">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 </body>
 </html>
