@@ -24,9 +24,9 @@ class CreateEventMixin:
                 field.widget.attrs.update({
                     'class': self.default_classes
                 })
-            elif isinstance(field.widget, forms.ModelChoiceField):
+            elif isinstance(field, forms.ModelChoiceField):  # Apply to ModelChoiceField
                 field.widget.attrs.update({
-                    'class': f"w-full"
+                    'class': f"{self.default_classes} bg-white text-gray-700"
                 })
             
 
@@ -35,6 +35,10 @@ class CreateEventForm(CreateEventMixin ,forms.ModelForm):
     class Meta:
         model = Event
         fields = "__all__"
+        widgets = {
+            "date": forms.DateInput(attrs={'type': 'date'}),
+            "time": forms.TimeInput(attrs={'type':'time'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

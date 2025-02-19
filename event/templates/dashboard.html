@@ -58,16 +58,18 @@
             </thead>
 
             <tbody>
-                <tr class="">
-                    <td>Birthday party</td>
-                    <td>Birthday</td>
-                    <td>Dhaka</td>
-                    <td>2025-10-11</td>
-                    <td>
-                        <button class="bg-yellow-500 text-white p-2 rounded-lg font-semibold">Update</button>
-                        <button class="bg-red-600 text-white p-2 rounded-lg font-semibold">Delete</button>
-                    </td>
-                </tr>
+                {% for event in today_events %}
+                    <tr class="">
+                        <td>{{event.name}}</td>
+                        <td>Birthday</td>
+                        <td>Dhaka</td>
+                        <td>2025-10-11</td>
+                        <td>
+                            <button class="bg-yellow-500 text-white p-2 rounded-lg font-semibold">Update</button>
+                            <button class="bg-red-600 text-white p-2 rounded-lg font-semibold">Delete</button>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </section>
