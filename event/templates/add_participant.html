@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>Add Participant</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+    {% comment %} Add Participant {% endcomment %}
+    <section>
+        <h1 class="text-4xl text-center font-bold">Add Participant</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="bg-green-500 p-2">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+        <form action="" method="POST" class="border border-black w-2/3 mx-auto my-5 flex flex-col gap-5 p-5 rounded-md">
+            {% csrf_token %}
+            {{add_participant_form}}
+            <button type="submit" class="border border-black bg-black text-white rounded-md p-2">Add Participant</button>
+        </form>
+    </section>
+</body>
+</html>

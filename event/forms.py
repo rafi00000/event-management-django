@@ -1,5 +1,5 @@
 from django import forms
-from event.models import Event
+from event.models import Event, Participant, Category
 
 class CreateEventMixin:
     default_classes = "border border-2 border-black p-2 mb-2 rounded-md w-full"
@@ -28,6 +28,14 @@ class CreateEventMixin:
                 field.widget.attrs.update({
                     'class': f"{self.default_classes} bg-white text-gray-700"
                 })
+            elif isinstance(field.widget, forms.EmailInput):
+                print("Thats a form")
+                field.widget.attrs.update({
+                    'class': f"{self.default_classes}",
+                    'placeholder': f"Please enter {field_name} here"
+                })
+            else:
+                print(field_name, field)
             
 
 
@@ -40,6 +48,24 @@ class CreateEventForm(CreateEventMixin ,forms.ModelForm):
             "time": forms.TimeInput(attrs={'type':'time'})
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_form_style()
+
+class AddParticipants(CreateEventMixin, forms.ModelForm):
+    class Meta:
+        model = Participant
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_form_style()
+
+class AddCategory(CreateEventMixin, forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = "__all__"
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.apply_form_style()
