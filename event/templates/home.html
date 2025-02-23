@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <title>Home Page</title>
 </head>
-<body class="bg-sky-200">
+<body>
     {% include "navbar.html" %}
-    <div class="h-screen flex justify-center items-center">
-        <h1 class="text-7xl font-bold text-rose-700 text-center">Welcome to <br>Event Management System</h1>
-        
-    </div>
+    {% comment %} hero section {% endcomment %}
+    <section class="bg-black flex flex-col">
+        <h1 class="text-white text-5xl text-center">We are Event Professionals</h1>
+        <br>
+        <form method="POST">
+            <input type="text" class="w-2/3 mx-auto p-2 rounded-md" placeholder="Search here">
+            <button class="bg-black text-white p-2 rounded-md font-bold">Search</button>
+        </form>
+    </section>
 </body>
 </html>

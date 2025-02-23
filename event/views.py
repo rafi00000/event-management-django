@@ -3,23 +3,31 @@ from django.http import HttpResponse
 from event.forms import CreateEventForm, AddParticipants, AddCategory
 from django.contrib import messages
 from event.models import Event, Participant
-from datetime import date
+from datetime import date, datetime
 from django.db.models import Count
+
 
 
 # Create your views here.
 
 def home(request):
+    all_events = Event.objects.all()
+    context = {
+        "all_events": all_events
+    }
     return render(request, "home.html")
 
 
 def organizer_dashboard(request):
-    date_today = date.today()
-    today_events = Event.objects.filter(date=date_today)
+    today = date.today()
+    today_date = f"{today}".split("-")
+    print(f"today date: {today} => {today_date[0]}")
+
+    today_events = Event.objects.filter(date=today)
     total_participant = Participant.objects.count()
     total_events = Event.objects.count()
-    upcoming_events = Event.objects.filter(date__gt = date_today).count()
-    past_events = Event.objects.filter(date__lt=date_today).count()
+    upcoming_events = Event.objects.filter(date__gt = today).count()
+    past_events = Event.objects.filter(date__lt=today).count()
     print(total_participant)
     context = {
         "total_events": total_events,
