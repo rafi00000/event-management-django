@@ -4,18 +4,26 @@ from event.forms import CreateEventForm, AddParticipants, AddCategory
 from django.contrib import messages
 from event.models import Event, Participant
 from datetime import date, datetime
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 
 
 # Create your views here.
 
 def home(request):
-    all_events = Event.objects.all()
+    # getting default and search by event result for home view
+    today_date = date.today()
+    query = request.GET.get('q', 'new')
+    if query == 'new':
+        search_event = Event.objects.filter(date=today_date).all()
+    else:
+        search_event = Event.objects.filter(name__icontains=query)
+    print(search_event)
+    
     context = {
-        "all_events": all_events
+        "search_event": search_event
     }
-    return render(request, "home.html")
+    return render(request, "home.html", context)
 
 
 def organizer_dashboard(request):
