@@ -5,23 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <title>Home Page</title>
+    <title>Home</title>
 </head>
 <body>
     {% include "navbar.html" %}
     {% comment %} hero section {% endcomment %}
-    <section class="bg-gradient-to-tr from-yellow-400 to-orange-500 flex flex-col justify-center items-center h-screen">
-        <h1 class="text-white text-5xl text-center font-bold">We are Event Professionals</h1>
-        <br>
-        <form method="POST" class="w-2/3 mx-auto flex gap-2">
-            <input type="text" class="mx-auto p-2 rounded-md w-5/6" placeholder="Search here">
-            <button class="bg-black text-white p-2 rounded-md font-bold w-1/6">Search</button>
+    <section class="flex flex-col justify-center items-center h-screen bg-yellow-600 gap-5">
+        <h1 class="text-white text-5xl text-center">We are Event Professionals</h1>
+        <form class="w-2/3 flex gap-4">
+            <input type="text" class="p-2 rounded-md w-full" placeholder="Search here" name="q">
+            <button type="submit" class="bg-black text-white p-2 rounded-md font-bold ">Search</button>
         </form>
     </section>
 
-    {% comment %} all event {% endcomment %}
+    {% comment %} event section {% endcomment %}
     <section>
-         
+        {% if search_event %}
+            {% for event in search_event %}
+            {% comment %} card {% endcomment %}
+                <div class="shadow-2xl rounded-md p-4 w-3/4 mx-auto border flex gap-5">
+                    <div class="">
+                        <img src="" alt="" class="w-52 h-20 rounded-md">
+                    </div>
+
+                    <div>
+                        <div>
+                            <p class="text-xl font-bold">{{event.name}}</p>
+                            <p>{{event.description}}</p>
+                        </div>
+                        <div>
+                            <p>Date: {{event.date}}</p>
+                            <p>Total Participant: </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% comment %} card end {% endcomment %}
+            {% endfor %}
+        {% endif %}
     </section>
+</body>
 </body>
 </html>

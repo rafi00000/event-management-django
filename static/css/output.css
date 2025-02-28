@@ -662,18 +662,24 @@ video {
   display: grid;
 }
 
+<<<<<<< HEAD
 .contents {
   display: contents;
 }
 
 .hidden {
   display: none;
+=======
+.h-20 {
+  height: 5rem;
+>>>>>>> 01a0c154f2c34de7b16aaf20d278d5a05db9a749
 }
 
 .h-screen {
   height: 100vh;
 }
 
+<<<<<<< HEAD
 .h-5 {
   height: 1.25rem;
 }
@@ -690,8 +696,18 @@ video {
   height: 24rem;
 }
 
+=======
+>>>>>>> 01a0c154f2c34de7b16aaf20d278d5a05db9a749
 .w-2\/3 {
   width: 66.666667%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-52 {
+  width: 13rem;
 }
 
 .w-full {
@@ -730,10 +746,13 @@ video {
   flex-direction: column;
 }
 
+<<<<<<< HEAD
 .content-start {
   align-content: flex-start;
 }
 
+=======
+>>>>>>> 01a0c154f2c34de7b16aaf20d278d5a05db9a749
 .items-center {
   align-items: center;
 }
@@ -750,10 +769,13 @@ video {
   gap: 1.25rem;
 }
 
+<<<<<<< HEAD
 .gap-3 {
   gap: 0.75rem;
 }
 
+=======
+>>>>>>> 01a0c154f2c34de7b16aaf20d278d5a05db9a749
 .gap-2 {
   gap: 0.5rem;
 }
@@ -816,6 +838,7 @@ video {
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
 
+<<<<<<< HEAD
 .bg-orange-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 115 22 / var(--tw-bg-opacity, 1));
@@ -883,6 +906,16 @@ video {
 
 .to-orange-500 {
   --tw-gradient-to: #f97316 var(--tw-gradient-to-position);
+=======
+.bg-yellow-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
+}
+
+.bg-yellow-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 204 21 / var(--tw-bg-opacity, 1));
+>>>>>>> 01a0c154f2c34de7b16aaf20d278d5a05db9a749
 }
 
 .p-2 {
@@ -891,6 +924,10 @@ video {
 
 .p-3 {
   padding: 0.75rem;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .p-5 {
@@ -932,6 +969,17 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .shadow-xl {
