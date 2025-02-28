@@ -10,13 +10,18 @@
 <body>
     {% include "navbar.html" %}
     {% comment %} hero section {% endcomment %}
-    <section class="bg-black flex flex-col">
-        <h1 class="text-white text-5xl text-center">We are Event Professionals</h1>
+    <section class="bg-gradient-to-tr from-yellow-400 to-orange-500 flex flex-col justify-center items-center h-screen">
+        <h1 class="text-white text-5xl text-center font-bold">We are Event Professionals</h1>
         <br>
-        <form method="POST">
-            <input type="text" class="w-2/3 mx-auto p-2 rounded-md" placeholder="Search here">
-            <button class="bg-black text-white p-2 rounded-md font-bold">Search</button>
+        <form method="POST" class="w-2/3 mx-auto flex gap-2">
+            <input type="text" class="mx-auto p-2 rounded-md w-5/6" placeholder="Search here">
+            <button class="bg-black text-white p-2 rounded-md font-bold w-1/6">Search</button>
         </form>
+    </section>
+
+    {% comment %} all event {% endcomment %}
+    <section>
+         
     </section>
 </body>
 </html>
