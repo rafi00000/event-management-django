@@ -32,13 +32,13 @@
                         <div>
                             <p class="text-xl font-bold">{{event.name}}</p>
                             <p>{{event.description}}</p>
+                            <p>Date: {{event.date}}</p>
+                            <p>Category: {{event.category}}</p>
                         </div>
                         <div>
-                            <p>Date: {{event.date}}</p>
-                            <p>Total Participant: </p>
+                            {% comment %} update and delete. {% endcomment %}
                         </div>
                     </div>
-                    
                 </div>
                 {% comment %} card end {% endcomment %}
             {% endfor %}

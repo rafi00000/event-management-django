@@ -15,11 +15,10 @@ def home(request):
     today_date = date.today()
     query = request.GET.get('q', 'new')
     if query == 'new':
-        search_event = Event.objects.filter(date=today_date).all()
+        search_event = Event.objects.select_related("category").filter(date=today_date).all()
     else:
-        search_event = Event.objects.filter(name__icontains=query)
-    print(search_event)
-    
+        search_event = Event.objects.select_related("category").filter(name__icontains=query).all()
+
     context = {
         "search_event": search_event
     }
