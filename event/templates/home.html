@@ -19,24 +19,25 @@
     </section>
 
     {% comment %} event section {% endcomment %}
-    <section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {% if search_event %}
             {% for event in search_event %}
             {% comment %} card {% endcomment %}
-                <div class="shadow-2xl rounded-md p-4 w-3/4 mx-auto border flex gap-5">
-                    <div class="">
-                        <img src="" alt="" class="w-52 h-20 rounded-md">
-                    </div>
-
-                    <div>
+                <div class="rounded-md p-4 w-3/4 mx-auto border flex gap-5 my-4">
+                    {% comment %} card content {% endcomment %}
+                    <div class="flex gap-4 justify-between w-full">
                         <div>
                             <p class="text-xl font-bold">{{event.name}}</p>
                             <p>{{event.description}}</p>
                             <p>Date: {{event.date}}</p>
                             <p>Category: {{event.category}}</p>
                         </div>
-                        <div>
+                        <div class="flex flex-col gap-5">
                             {% comment %} update and delete. {% endcomment %}
+                            <a href="{% url 'update-task' event.id %}"><button class="bg-yellow-500 text-white font-bold p-2 rounded-md" type="submit">Update</button></a>
+                            
+                            <button class="bg-red-500 text-white font-bold p-2 rounded-md">Delete</button>
                         </div>
                     </div>
                 </div>

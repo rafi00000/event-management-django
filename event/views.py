@@ -15,7 +15,7 @@ def home(request):
     today_date = date.today()
     query = request.GET.get('q', 'new')
     if query == 'new':
-        search_event = Event.objects.select_related("category").filter(date=today_date).all()
+        search_event = Event.objects.select_related("category").all()
     else:
         search_event = Event.objects.select_related("category").filter(name__icontains=query).all()
 
@@ -58,6 +58,27 @@ def create_task(request):
         "event_form": event_form
     }
     return render(request, "create-event.html", context)
+
+def update_task(request, id):
+    event = Event.objects.get(id=id)
+    event_form = CreateEventForm(instance=event)
+    if request.method == "POST":
+        event_form = CreateEventForm(request.POST, instance=event)
+        if event_form.is_valid():
+            event_form.save()
+            messages.success(request, "Event Updated")
+            return redirect("home-page")
+    context = {
+        "event_form": event_form
+    }
+    return render(request, "create-event.html", context)
+
+def delete_task(request, id):
+    if request.method == "POST":
+        event = Event.objects.get(id=id)
+        event.delete()
+        messages.success(request, "Event Deleted Successfully")
+        return redirect("home-page")
 
 
 def addParticipant(request):
