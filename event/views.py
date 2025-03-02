@@ -12,16 +12,16 @@ from django.db.models import Count, Sum
 
 def home(request):
     # getting default and search by event result for home view
-    today_date = date.today()
     query = request.GET.get('q', 'new')
     if query == 'new':
-        search_event = Event.objects.select_related("category").all()
+        search_event = Event.objects.select_related("category").prefetch_related("participant").all()
     else:
-        search_event = Event.objects.select_related("category").filter(name__icontains=query).all()
-
+        search_event = Event.objects.select_related("category").prefetch_related("participant").filter(name__icontains=query).all()
+    
     context = {
-        "search_event": search_event
+        "search_event": search_event,
     }
+    print(f"search event: {search_event[0].participant.all()}")
     return render(request, "home.html", context)
 
 
@@ -29,13 +29,12 @@ def organizer_dashboard(request):
     today = date.today()
     today_date = f"{today}".split("-")
     print(f"today date: {today} => {today_date[0]}")
-
-    today_events = Event.objects.filter(date=today)
-    total_participant = Participant.objects.count()
+    today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date=today)
+    total_participant = Participant.objects.aggregate(total=Count("id"))["total"]
     total_events = Event.objects.count()
     upcoming_events = Event.objects.filter(date__gt = today).count()
     past_events = Event.objects.filter(date__lt=today).count()
-    print(total_participant)
+
     context = {
         "total_events": total_events,
         "today_events": today_events,
@@ -109,3 +108,10 @@ def addCategory(request):
         "category_form": addCateg
     }
     return render(request, "addCategory.html", context)
+
+def event_detail(request, id):
+    event = Event.objects.get(id=id)
+    context = {
+        "event": event
+    }
+    return render(request, "event-detail.html", context)
