@@ -21,14 +21,11 @@ def home(request):
     context = {
         "search_event": search_event,
     }
-    print(f"search event: {search_event[0].participant.all()}")
     return render(request, "home.html", context)
 
 
 def organizer_dashboard(request):
     today = date.today()
-    today_date = f"{today}".split("-")
-    print(f"today date: {today} => {today_date[0]}")
     total_participant = Participant.objects.aggregate(total=Count("id"))["total"]
     total_events = Event.objects.count()
     upcoming_events = Event.objects.filter(date__gt = today).count()

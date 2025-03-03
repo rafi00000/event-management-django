@@ -29,13 +29,10 @@ class CreateEventMixin:
                     'class': f"{self.default_classes} bg-white text-gray-700"
                 })
             elif isinstance(field.widget, forms.EmailInput):
-                print("Thats a form")
                 field.widget.attrs.update({
                     'class': f"{self.default_classes}",
                     'placeholder': f"Please enter {field_name} here"
                 })
-            else:
-                print(field_name, field)
             
 
 
