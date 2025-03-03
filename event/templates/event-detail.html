@@ -1,41 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <title>Details page.</title>
 </head>
-<body>
+<body class="bg-yellow-100">
+    {% include "navbar.html" %}
     <section>
-        <h1>Event Details</h1>
-        <img src="" alt="Event image" class="w-1/4 mx-auto">
+        <h1 class="text-center text-3xl font-bold mb-5">Event Details</h1>
+        <img src="" alt="Event image" class="w-1/4 mx-auto h-64 border">
         <div class="w-1/2 mx-auto">
-            <p class="text-5xl font-bold text-center">Name: {{event.name}}</p>
-            <p>Description: {{event.description}}</p>
-            <p>Date: {{event.date}}</p>
-            <p>Category: {{event.category}}</p>
-            <p>Total Participant: {{event.participant.count}}</p>
+            <p class="text-5xl font-bold text-center my-9">Name: {{event.name}}</p>
+            <p><span class="font-bold">Description: <br> </span>{{event.description}}</p>
+            <div class="flex justify-between">
+                <p><span class="font-bold">Event Date:</span> {{event.date}}</p>
+                <p><span class="font-bold">Event Time:</span> {{event.time}}</p>
+            </div>
+            <p><span class="font-bold">Category:</span> {{event.category}}</p>
+            <p><span class="font-bold">Total Participant:</span> {{event.participant.count}}</p>
         </div>
-        <h1>Participant list</h1>
-        <table class="w-1/2 mx-auto border">
-            <thead>
+        {% comment %} participant list {% endcomment %}
+        <section>
+            <h1 class="text-2xl font-bold text-center">Participant list</h1>
+        <table class="w-1/2 mx-auto text-center">
+            <thead class="border border-black">
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
+                    <th class="border border-black">Name</th>
+                    <th class="border border-black">Email</th>
+                    <th class="border border-black">Phone</th>
                 </tr>
             </thead>
             <tbody>
                 {% for participant in event.participant.all %}
-                <tr>
-                    <td>{{participant.name}}</td>
-                    <td>{{participant.email}}</td>
-                    <td>{{participant.phone}}</td>
+                <tr class="border border-black">
+                    <td class="border border-black">{{participant.name}}</td>
+                    <td class="border border-black">{{participant.email}}</td>
+                    <td class="border border-black">{{participant.phone}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
 
         </table>
+        </section>
     </section>
 </body>
 </html>
