@@ -14,12 +14,10 @@
 
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-5">
         {% comment %} card {% endcomment %}
-        <a href="">
-            <div class="bg-yellow-200 p-5 shadow-xl border border-black rounded-lg text-center">
-                <h2 class="text-3xl font-bold ">Total Participant</h2>
-                <p class="text-center text-3xl font-bold">{{participant_count}}</p>
-            </div>
-        </a>
+        <div class="bg-yellow-200 p-5 shadow-xl border border-black rounded-lg text-center">
+            <h2 class="text-3xl font-bold ">Total Participant</h2>
+            <p class="text-center text-3xl font-bold">{{participant_count}}</p>
+        </div>
        
         {% comment %} card {% endcomment %}
         <a href="{% url 'organizer-dashboard' %}?q=total_event">
@@ -48,7 +46,7 @@
 
     {% comment %} table {% endcomment %}
     <section class="md:w-4/5 lg:w-11/12 m-auto text-center">
-        <table class="table-auto border border-collapse border-black w-full text-xl rounded-md">
+        <table class="table-auto border border-collapse border-black w-full rounded-md">
             <thead class="border border-black bg-blue-400 text-white">
                 <th>Name</th>
                 <th>Category</th>
@@ -60,7 +58,7 @@
 
             <tbody>
                 {% for event in today_events %}
-                    <tr class="">
+                    <tr class="border border-black">
                         <td>{{event.name}}</td>
                         <td>{{event.category}}</td>
                         <td>{{event.location}}</td>

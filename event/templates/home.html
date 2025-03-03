@@ -28,22 +28,13 @@
             <a href="{% url 'event-detail' event.id %}">
                         <div class="rounded-md p-4 w-3/4 mx-auto border flex gap-5 my-4">
                         {% comment %} card content {% endcomment %}
-                        <div class="flex gap-4 justify-between w-full">
+                        <div class="w-full">
                             <div>
                                 <p class="text-xl font-bold">{{event.name}}</p>
                                 <p>{{event.description}}</p>
-                                <p>Date: {{event.date}}</p>
+                                <p>Date & Time: {{event.date}} at {{event.time}}</p>
                                 <p>Category: {{event.category}}</p>
                                 <p>Total Participant: {{event.participant.count}}</p>
-                            </div>
-                            <div class="flex flex-col gap-5">
-                                {% comment %} update and delete. {% endcomment %}
-                                <a href="{% url 'update-task' event.id %}"><button class="bg-yellow-500 text-white font-bold p-2 rounded-md" type="submit">Update</button></a>
-                                {% comment %} delete form {% endcomment %}
-                                <form action="{% url 'delete-task' event.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button class="bg-red-500 text-white font-bold p-2 rounded-md" type="submit">Delete</button>
-                                </form>
                             </div>
                         </div>
                     </div>

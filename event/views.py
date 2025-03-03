@@ -38,11 +38,11 @@ def organizer_dashboard(request):
     # getting data of events.
     q = request.GET.get("q")
     if q == "total_event":
-        today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date=today)
+        today_events = Event.objects.select_related("category").prefetch_related("participant")
     elif q == "upcoming_event":
-        today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date=today)
+        today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date__gt=today)
     elif q == "past_event":
-        today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date=today)
+        today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date__lt=today)
     else:
         today_events = Event.objects.select_related("category").prefetch_related("participant").filter(date=today)
 
