@@ -35,13 +35,13 @@ def organizer_dashboard(request):
     # getting data of events.
     q = request.GET.get("q")
     if q == "total_event":
-        today_events = Event.objects.select_related("category").prefetch_related("participant")
+        today_events = Event.objects.select_related("category")
     elif q == "upcoming_event":
-        today_events = today_events.filter(date__gt=today)
+        today_events = Event.objects.select_related("category").filter(date__gt=today)
     elif q == "past_event":
-        today_events = today_events.filter(date__lt=today)
+        today_events = Event.objects.select_related("category").filter(date__lt=today)
     else:
-        today_events = today_events.filter(date=today)
+        today_events = Event.objects.select_related("category").filter(date=today)
 
     context = {
         "total_events": total_events,
@@ -132,3 +132,14 @@ def rsvp_event(request, event_id):
     else:
         messages.warning(request, "You have already RSVP'd to this event")
     return redirect("home-page")
+
+
+def participant_dashboard(request):
+    participant_events = request.user.events.all()
+    context = {
+        "events": participant_events
+    }
+    return render(request, "dashboards/participant-dashboard.html", context)
+
+def admin_dashboard(request):
+    pass

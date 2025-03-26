@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>{user.first_name}'s Dashboard</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+    
+    <section>
+        <h1 class="text-3xl font-bold text-center">Welcome, {{user.first_name}}</h1>
+        <p class="text-center">Here are your upcoming events</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-5">
+            {% if events %}
+                {% for event in events %}
+                    <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg hover:drop-shadow-2xl duration-500">
+                        <p class="font-bold">Event Name: {{event.name}}</p>
+                        <p class="">Date: {{event.date}}</p>
+                        <p class="">{{event.time}}</p>
+                        <p class="">{{event.location}}</p>
+                        <a href="{% url 'event-detail' event.id %}"><button class="p-2 bg-sky-400 text-white rounded-md hover:bg-sky-700 duration-200">View Event</button></a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+</body>
+</html>

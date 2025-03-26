@@ -33,6 +33,5 @@ def sign_in(request):
     return render(request, "registerforms/login.html", context)
 
 def sign_out(request):
-    print("signing out")
     logout(request)
     return redirect("home-page")
