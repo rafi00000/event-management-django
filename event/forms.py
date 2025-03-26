@@ -33,6 +33,16 @@ class CreateEventMixin:
                     'class': f"{self.default_classes}",
                     'placeholder': f"Please enter {field_name} here"
                 })
+            elif isinstance(field.widget, forms.CharField):
+                field.widget.attrs.update({
+                    'class': f"{self.default_classes}",
+                    'placeholder': f"Please enter {field_name} here"
+                })
+            else:
+                field.widget.attrs.update({
+                    'class': f"{self.default_classes}",
+                    'placeholder': f"Please enter here"
+                })
             
 
 

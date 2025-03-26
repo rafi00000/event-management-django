@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <title>Log in</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <h1 class="text-4xl font-bold text-center">Login</h1>
+
+    <div>
+        <form action="" method="POST" class="w-2/3 mx-auto border p-7 rounded-md">
+            {% csrf_token %}
+             {{login_form}}
+            <button type="submit" class="border p-2 rounded-md bg-sky-700 text-white">Log In</button>
+        </form>
+    </div>
+
+</body>
+</html>

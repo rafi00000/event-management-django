@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'event',
+    'users'
 ]
 
 STATIC_URL = "static/"
@@ -90,13 +91,20 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://event_management_db_pyud_user:xDFboEw6AMPsURiX0X8PTCKYOOiFVCND@dpg-cv2mm0tumphs739seivg-a.oregon-postgres.render.com/event_management_db_pyud',
-        conn_max_age=600
-    )
+    # 'default': dj_database_url.config(
+    #     # Replace this value with your local database's connection string.
+    #     default='postgresql://event_management_db_pyud_user:xDFboEw6AMPsURiX0X8PTCKYOOiFVCND@dpg-cv2mm0tumphs739seivg-a.oregon-postgres.render.com/event_management_db_pyud',
+    #     conn_max_age=600
+    # )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_management',
+        'USER': 'postgres',
+        'PASSWORD': 'admin1234',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -138,3 +146,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+FRONT_END_URL = "http://127.0.0.1:8000/"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server host
+EMAIL_USE_TLS = True  # True for TLS, False for SSL
+EMAIL_HOST_USER = 'delwar2021bd@gmail.com'  # SMTP server username
+EMAIL_HOST_PASSWORD = 'bpoz gnqz fecn xuhc'  # SMTP server password

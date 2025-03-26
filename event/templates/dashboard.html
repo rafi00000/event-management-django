@@ -14,14 +14,14 @@
 
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-5">
         {% comment %} card {% endcomment %}
-        <div class="bg-yellow-200 p-5 shadow-xl border border-black rounded-lg text-center">
+        <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
             <h2 class="text-3xl font-bold ">Total Participant</h2>
             <p class="text-center text-3xl font-bold">{{participant_count}}</p>
         </div>
        
         {% comment %} card {% endcomment %}
         <a href="{% url 'organizer-dashboard' %}?q=total_event">
-            <div class="bg-yellow-200 p-5 shadow-xl border border-black rounded-lg text-center">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
                 <h2 class="text-3xl font-bold ">Total Events</h2>
                 <p class="text-center text-3xl font-bold">{{total_events}}</p>
             </div>
@@ -29,7 +29,7 @@
        
         {% comment %} card {% endcomment %}
         <a href="{% url 'organizer-dashboard' %}?q=upcoming_event">
-            <div class="bg-yellow-200 p-5 shadow-xl border border-black rounded-lg text-center">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
                 <h2 class="text-3xl font-bold ">Upcoming Event</h2>
                 <p class="text-center text-3xl font-bold">{{upcoming_events}}</p>
             </div>
@@ -37,7 +37,7 @@
        
         {% comment %} card {% endcomment %}
         <a href="{% url 'organizer-dashboard' %}?q=past_event">
-            <div class="bg-yellow-200 p-5 shadow-xl border border-black rounded-lg text-center">
+            <div class="bg-sky-200 p-5 shadow-xl border border-black rounded-lg text-center">
                 <h2 class="text-3xl font-bold ">Past Events</h2>
                 <p class="text-center text-3xl font-bold">{{past_events}}</p>
             </div>
@@ -65,7 +65,7 @@
                         <td>{{event.date}}</td>
                         <td>{{event.time}}</td>
                         <td class="flex gap-5 border border-l-black justify-center">
-                            <a href="{% url 'update-task' event.id %}"><button class="bg-yellow-500 text-white font-bold p-2 rounded-md" type="submit">Update</button></a>
+                            <a href="{% url 'update-task' event.id %}"><button class="bg-sky-500 text-white font-bold p-2 rounded-md" type="submit">Update</button></a>
                                 <form action="{% url 'delete-task' event.id %}" method="POST">
                                     {% csrf_token %}
                                     <button class="bg-red-500 text-white font-bold p-2 rounded-md" type="submit">Delete</button>
