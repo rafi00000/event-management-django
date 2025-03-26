@@ -16,6 +16,7 @@
             {% csrf_token %}
              {{login_form}}
             <button type="submit" class="border p-2 rounded-md bg-sky-700 text-white">Log In</button>
+            <p class="text-center">New User? <a href="{% url 'sign-up' %}" class="text-blue-700">Register</a></p>
         </form>
     </div>
 

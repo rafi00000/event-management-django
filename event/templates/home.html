@@ -19,7 +19,11 @@
     </section>
 
     {% comment %} event section {% endcomment %}
-
+    {% if messages %}
+            {% for message in messages %}
+                <p class="p-2 bg-green-600 text-white">{{message}}</p>
+            {% endfor %}
+    {% endif %}
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {% if search_event %}
             {% for event in search_event %}
@@ -29,22 +33,23 @@
                         <div class="rounded-md p-4 w-3/4 mx-auto border flex gap-5 my-4">
                         {% comment %} card content {% endcomment %}
                         <div class="w-full">
-                            <div>
-                                <p class="text-xl font-bold">{{event.name}}</p>
-                                <p>{{event.description}}</p>
-                                <p>Date & Time: {{event.date}} at {{event.time}}</p>
-                                <p>Category: {{event.category}}</p>
-                                <p>Total Participant: {{event.participant.count}}</p>
+                            <p class="text-xl font-bold">{{event.name}}</p>
+                            <p>{{event.description}}</p>
+                            <p>Date & Time: {{event.date}} at {{event.time}}</p>
+                            <p>Category: {{event.category}}</p>
+                            <p>Total Participant: {{event.participant.count}}</p>
+                            {% if user.is_authenticated %}
+                            <div class="flex justify-center">
+                                <a href="{% url 'rsvp_event' event.id %}"><button class="text-white bg-green-600 p-2 rounded-md">RSVP</button></a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </a>
             </div>
-                    
             {% comment %} card end {% endcomment %}
             {% endfor %}
         {% endif %}
     </section>
-</body>
 </body>
 </html>

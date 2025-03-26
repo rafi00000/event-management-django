@@ -1,5 +1,5 @@
 from django import forms
-from event.models import Event, Participant, Category
+from event.models import Event, Category
 
 class CreateEventMixin:
     default_classes = "border border-2 border-black p-2 mb-2 rounded-md w-full"
@@ -59,14 +59,14 @@ class CreateEventForm(CreateEventMixin ,forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.apply_form_style()
 
-class AddParticipants(CreateEventMixin, forms.ModelForm):
-    class Meta:
-        model = Participant
-        fields = "__all__"
+# class AddParticipants(CreateEventMixin, forms.ModelForm):
+#     class Meta:
+#         model = Participant
+#         fields = "__all__"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.apply_form_style()
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.apply_form_style()
 
 class AddCategory(CreateEventMixin, forms.ModelForm):
     class Meta:
