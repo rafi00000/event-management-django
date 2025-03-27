@@ -11,7 +11,7 @@
     {% include "navbar.html" %}
     <section>
         <h1 class="text-center text-3xl font-bold mb-5">Event Details</h1>
-        <img src="" alt="Event image" class="w-1/4 mx-auto h-64 border">
+        <img src={{event.asset.url}} alt="Event image" class="w-1/4 mx-auto h-64 border">
         <div class="w-1/2 mx-auto">
             <p class="text-5xl font-bold text-center my-9">Name: {{event.name}}</p>
             <p><span class="font-bold">Description: <br> </span>{{event.description}}</p>

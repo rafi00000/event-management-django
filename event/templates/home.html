@@ -9,6 +9,12 @@
 </head>
 <body>
     {% include "navbar.html" %}
+    {% comment %} rsvp event message {% endcomment %}
+     {% if messages %}
+            {% for message in messages %}
+                <p class="p-2 bg-green-600 text-white">{{message}}</p>
+            {% endfor %}
+    {% endif %}
     {% comment %} hero section {% endcomment %}
     <section class="flex flex-col justify-center items-center h-screen bg-sky-600 gap-5">
         <h1 class="text-white text-5xl text-center">We are Event Professionals</h1>
@@ -19,11 +25,6 @@
     </section>
 
     {% comment %} event section {% endcomment %}
-    {% if messages %}
-            {% for message in messages %}
-                <p class="p-2 bg-green-600 text-white">{{message}}</p>
-            {% endfor %}
-    {% endif %}
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {% if search_event %}
             {% for event in search_event %}

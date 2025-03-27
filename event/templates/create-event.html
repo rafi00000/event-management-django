@@ -16,7 +16,7 @@
                 <p class="bg-green-700 text-white font-bold space-y-5">{{msg}}</p>
             {% endfor %}
         {% endif %}
-        <form method="POST" class="border border-black w-2/3 mx-auto my-5 flex flex-col gap-5 p-5 rounded-md">
+        <form method="POST" class="border border-black w-2/3 mx-auto my-5 flex flex-col gap-5 p-5 rounded-md" enctype="multipart/form-data">
             {% csrf_token %}
             {{event_form}}
             <button type="submit" class="border border-black bg-black text-white rounded-md p-2">Submit</button>

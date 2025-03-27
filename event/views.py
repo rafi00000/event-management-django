@@ -55,7 +55,7 @@ def organizer_dashboard(request):
 def create_task(request):
     event_form = CreateEventForm()
     if request.method == "POST":
-        event_form = CreateEventForm(request.POST)
+        event_form = CreateEventForm(request.POST, request.FILES)
         if event_form.is_valid():
             event_form.save()   
             messages.success(request, "Event created Successfully")
@@ -135,7 +135,10 @@ def rsvp_event(request, event_id):
 
 
 def participant_dashboard(request):
-    participant_events = request.user.events.all()
+    if request.user:
+        participant_events = request.user.events.all()
+    else:
+        participant_events = []
     context = {
         "events": participant_events
     }

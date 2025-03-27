@@ -49,7 +49,7 @@ class CreateEventMixin:
 class CreateEventForm(CreateEventMixin ,forms.ModelForm):
     class Meta:
         model = Event
-        fields = "__all__"
+        fields = ["name", "description", "date", "time", "location", "category", "asset"]
         widgets = {
             "date": forms.DateInput(attrs={'type': 'date'}),
             "time": forms.TimeInput(attrs={'type':'time'})

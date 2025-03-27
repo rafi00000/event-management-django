@@ -8,20 +8,30 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="bg-sky-500 text-white">
-    <ul class="flex flex-wrap justify-center gap-5 list-none p-3 text-xl">
-        <li><a href="{% url 'home-page' %}">Home</a></li>
-        <li><a href="{% url 'create-event' %}">Create Event</a></li>
-        {% comment %} <li><a href="{% url 'add-participant' %}">Add Participant</a></li> {% endcomment %}
-        <li><a href="{% url 'add-category' %}">Add Category</a></li>        
-        {% if user.is_authenticated %}
-            <li><a href="{% url 'organizer-dashboard' %}">Organizer Dashboard</a></li>
-            <li><a href="{% url 'sign-out' %}">Logout</a></li>
-        {% else %}
-            <li><a href="{% url 'sign-in' %}">Login</a></li>
-        {% endif %}
-        
-    </ul>
-</nav>    
+    <nav class="bg-sky-500 text-white ">
+        <div class="flex justify-between items-center p-2 mx-5">
+            <div>
+                <h1 class="text-2xl font-bold">EvenM</h1>
+            </div>
+            <ul class="flex flex-wrap justify-center gap-5 list-none p-3 text-xl">
+                <li><a href="{% url 'home-page' %}">Home</a></li>
+                <li><a href="{% url 'create-event' %}">Create Event</a></li>
+                {% comment %} <li><a href="{% url 'add-participant' %}">Add Participant</a></li> {% endcomment %}
+                <li><a href="{% url 'add-category' %}">Add Category</a></li>        
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'organizer-dashboard' %}">Organizer Dashboard</a></li>
+                    <li class="rounded-md px-2 bg-blue-700"><a href="{% url 'sign-out' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'sign-in' %}">Login</a></li>
+                {% endif %}
+            </ul>
+            {% comment %} user info {% endcomment %}
+            <div>
+                {% if user.is_authenticated %}
+                    <p class="text-center border p-2 rounded-md bg-sky-600 text-white">Welcome, {{ user.first_name|default:"User" }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </nav>    
 </body>
 </html>

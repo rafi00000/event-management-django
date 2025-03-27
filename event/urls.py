@@ -11,6 +11,6 @@ urlpatterns = [
     path("update-task/<int:id>", update_task, name="update-task"),
     path("delete-task/<int:id>", delete_task, name="delete-task"),
     path('rsvp/<int:event_id>/', rsvp_event, name='rsvp_event'),
-    path("participant-dashboard/", participant_dashboard, name="home-page"),
+    path("participant-dashboard/", participant_dashboard, name="participant-dashboard"),
     path("admin-dashboard/", admin_dashboard, name="admin-dashboard"),
 ]
