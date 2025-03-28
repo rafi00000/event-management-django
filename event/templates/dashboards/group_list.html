@@ -1,0 +1,33 @@
+{% extends "dashboards/admin-dashboard.html" %}
+    
+{% block content %}
+<section>
+    {% comment %} Group and permission {% endcomment %}
+    <h1 class="text-3xl font-bold text-center">Group List</h1>
+    <table class="table-auto border border-collapse w-full rounded-md">
+        <thead class="border bg-sky-500 text-white">
+            <tr>
+                <th class="py-1 px-4 border">Sl.</th>
+                <th class="py-1 px-4 border">Group Name</th>
+                <th class="py-1 px-4 border">Permissions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+                <tr class="border bg-gray-100 hover:bg-gray-200 transition">
+                    <td class="py-2 px-4 border">{{ forloop.counter }}</td>
+                    <td class="py-2 px-4 border">{{ group.name }}</td>
+                    <td class="py-2 px-4 border">
+                        <ul>
+                            {% for permission in group.permissions.all %}
+                                <li>{{ permission.name }}</li>
+                            {% empty %}
+                                <li>No permission assigned</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</section>
+{% endblock content %}

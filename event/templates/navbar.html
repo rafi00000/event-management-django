@@ -15,9 +15,7 @@
             </div>
             <ul class="flex flex-wrap justify-center gap-5 list-none p-3 text-xl">
                 <li><a href="{% url 'home-page' %}">Home</a></li>
-                <li><a href="{% url 'create-event' %}">Create Event</a></li>
-                {% comment %} <li><a href="{% url 'add-participant' %}">Add Participant</a></li> {% endcomment %}
-                <li><a href="{% url 'add-category' %}">Add Category</a></li>        
+                {% comment %} <li><a href="{% url 'add-participant' %}">Add Participant</a></li> {% endcomment %}       
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'organizer-dashboard' %}">Organizer Dashboard</a></li>
                     <li class="rounded-md px-2 bg-blue-700"><a href="{% url 'sign-out' %}">Logout</a></li>

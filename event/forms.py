@@ -1,5 +1,6 @@
 from django import forms
 from event.models import Event, Category
+from django.contrib.auth.models import Group, Permission
 
 class CreateEventMixin:
     default_classes = "border border-2 border-black p-2 mb-2 rounded-md w-full"
@@ -20,14 +21,14 @@ class CreateEventMixin:
                 field.widget.attrs.update({
                     'class': self.default_classes
                 })
-            elif isinstance(field.widget, forms.CheckboxSelectMultiple):
-                field.widget.attrs.update({
-                    'class': self.default_classes
-                })
-            elif isinstance(field, forms.ModelChoiceField):  # Apply to ModelChoiceField
-                field.widget.attrs.update({
-                    'class': f"{self.default_classes} bg-white text-gray-700"
-                })
+            # elif isinstance(field.widget, forms.CheckboxSelectMultiple):
+            #     field.widget.attrs.update({
+            #         'class': self.default_classes
+            #     })
+            # elif isinstance(field, forms.ModelChoiceField):  # Apply to ModelChoiceField
+            #     field.widget.attrs.update({
+            #         'class': f"{self.default_classes} bg-white text-gray-700"
+            #     })
             elif isinstance(field.widget, forms.EmailInput):
                 field.widget.attrs.update({
                     'class': f"{self.default_classes}",
@@ -37,11 +38,6 @@ class CreateEventMixin:
                 field.widget.attrs.update({
                     'class': f"{self.default_classes}",
                     'placeholder': f"Please enter {field_name} here"
-                })
-            else:
-                field.widget.attrs.update({
-                    'class': f"{self.default_classes}",
-                    'placeholder': f"Please enter here"
                 })
             
 
@@ -73,6 +69,28 @@ class AddCategory(CreateEventMixin, forms.ModelForm):
         model = Category
         fields = "__all__"
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_form_style()
+
+class AssignRoleForm(forms.Form):
+    role = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        widget=forms.Select(attrs={'class': 'border border-2 border-black p-2 mb-2 rounded-md w-full'}),
+        empty_label="Select Role"
+    )
+
+class CreateGroupForm(CreateEventMixin, forms.ModelForm):
+    permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.all(),
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,
+        label="Select Permissions"
+    )
+    class Meta:
+        model = Group
+        fields = ["name", "permissions"]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.apply_form_style()

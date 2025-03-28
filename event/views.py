@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from event.forms import CreateEventForm, AddCategory
+from event.forms import CreateEventForm, AddCategory, AssignRoleForm, CreateGroupForm
 from django.contrib import messages
 from event.models import Event
 from datetime import date, datetime
 from django.db.models import Count, Sum
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Group
 
 
 
@@ -50,7 +53,7 @@ def organizer_dashboard(request):
         "upcoming_events": upcoming_events,
         "past_events": past_events
     }
-    return render(request, "dashboard.html", context)   
+    return render(request, "dashboards/organizer_dashboard.html", context)   
 
 def create_task(request):
     event_form = CreateEventForm()
@@ -119,6 +122,9 @@ def addCategory(request):
 
 def event_detail(request, id):
     event = Event.objects.get(id=id)
+    # total participant
+    all_participant = event.participants.all()
+    print(all_participant[0].email)
     context = {
         "event": event
     }
@@ -145,4 +151,46 @@ def participant_dashboard(request):
     return render(request, "dashboards/participant-dashboard.html", context)
 
 def admin_dashboard(request):
-    pass
+    users = User.objects.all()
+    context = {
+        "users": users
+    }
+    return render(request, "dashboards/admin-dashboard.html", context)
+
+def assign_role(request, user_id):
+    user = User.objects.get(id=user_id)
+    form = AssignRoleForm()
+    if request.method == "POST":
+        form = AssignRoleForm(request.POST)
+        if form.is_valid():
+            role = form.cleaned_data.get("role")
+            user.groups.clear()
+            user.groups.add(role)
+            messages.success(request, "Role assigned successfully")
+            return redirect("admin-dashboard")
+    return render(request, "dashboards/assign_role.html", {"form": form})
+
+
+def create_group(request):
+    form = CreateGroupForm()
+    if request.method == "POST":
+        form = CreateGroupForm(request.POST)
+        if form.is_valid():
+            group = form.save()
+            messages.success(request, f"Group {group.name} created successfully")
+            return redirect("create-group")
+    return render(request, "dashboards/create_group.html", {"form": form})
+
+
+def group_list(request):
+    groups = Group.objects.all()
+    return render(request, "dashboards/group_list.html", {"groups": groups})
+
+
+def all_events(request):
+    events = Event.objects.all()
+    context = {
+        "today_events": events
+    }
+    return render(request, "data_temp/all_events.html", context)
+

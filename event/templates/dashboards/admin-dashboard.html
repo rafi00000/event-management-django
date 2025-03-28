@@ -9,6 +9,70 @@
 </head>
 <body>
     {% include "navbar.html" %}
-    
+
+    {% comment %} all users {% endcomment %}
+     {% comment %} access list buttons {% endcomment %}
+    <div class="text-center my-5">
+        {% comment %} admin dashboard {% endcomment %}
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+           href="{% url 'admin-dashboard' %}">
+            Admin Dashboard
+        </a>
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+           href="{% url 'create-group' %}">
+            Create Group
+        </a>
+        {% comment %} create-event {% endcomment %}
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+           href="{% url 'create-event' %}">
+            Create Event
+        </a>
+        {% comment %} add-category {% endcomment %}
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+           href="{% url 'add-category' %}">
+            Add Category
+        </a>
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+           href="{% url 'group-list' %}">
+            All Groups
+        </a>
+        {% comment %} all events {% endcomment %}
+        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+           href="{% url 'all-events' %}">
+            All Events
+        </a>
+    </div>
+    {% block content %}
+    <section class="md:w-4/5 lg:w-11/12 m-auto text-center my-5">
+    <table class="table-auto border border-collapse w-full rounded-md">
+        <thead class="border bg-sky-500 text-white">
+            <tr>
+                <th class="py-1 px-4 border">Sl.</th>
+                <th class="py-1 px-4 border">Name</th>
+                <th class="py-1 px-4 border">Email</th>
+                <th class="py-1 px-4 border">Role</th>
+                <th class="py-1 px-4 border">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr class="border bg-gray-100 hover:bg-gray-200 transition">
+                    <td class="py-2 px-4 border">{{ forloop.counter }}</td>
+                    <td class="py-2 px-4 border">{{ user.first_name }} {{ user.last_name }}</td>
+                    <td class="py-2 px-4 border">{{ user.email }}</td>
+                    <td class="py-2 px-4 border">{{ user.groups.first.name|default:"No role" }}</td>
+                    <td class="py-2 px-4 border">
+                        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block" 
+                           href="{% url 'assign-role' user.id %}">
+                            Change Role
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+        {% endblock content %}
 </body>
 </html>
