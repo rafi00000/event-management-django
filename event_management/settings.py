@@ -153,3 +153,8 @@ EMAIL_HOST = 'smtp.gmail.com'  # SMTP server host
 EMAIL_USE_TLS = True  # True for TLS, False for SSL
 EMAIL_HOST_USER = 'delwar2021bd@gmail.com'  # SMTP server username
 EMAIL_HOST_PASSWORD = 'bpoz gnqz fecn xuhc'  # SMTP server password
+
+
+# media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'

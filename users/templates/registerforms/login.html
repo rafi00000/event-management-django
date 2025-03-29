@@ -10,7 +10,11 @@
 <body>
     {% include "navbar.html" %}
     <h1 class="text-4xl font-bold text-center">Login</h1>
-
+    {% if messages %}
+        {% for message in messages %}
+            <p class="p-2 bg-green-600 text-white">{{message}}</p>
+        {% endfor %}
+    {% endif %}
     <div>
         <form action="" method="POST" class="w-2/3 mx-auto border p-7 rounded-md">
             {% csrf_token %}

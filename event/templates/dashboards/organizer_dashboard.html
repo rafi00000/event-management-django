@@ -44,6 +44,12 @@
         </a>
     </section>
 
+        {% comment %} access menu {% endcomment %}
+    <section class="flex justify-center gap-5 m-5">
+        <a href="{% url 'create-event' %}"><button class="bg-sky-500 text-white font-bold p-2 rounded-md" type="submit">Create Event</button></a>
+        <a href="{% url 'add-category' %}"><button class="bg-sky-500 text-white font-bold p-2 rounded-md" type="submit">Add Category</button></a>
+    </section>
+
     {% comment %} table {% endcomment %}
     <section class="md:w-4/5 lg:w-11/12 m-auto text-center">
         <table class="table-auto border border-collapse border-black w-full rounded-md">

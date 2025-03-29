@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <title>{user.first_name}'s Dashboard</title>
+    <title>{{user.first_name}}'s Dashboard</title>
 </head>
 <body>
     {% include "navbar.html" %}
@@ -24,6 +24,8 @@
                         <a href="{% url 'event-detail' event.id %}"><button class="p-2 bg-sky-400 text-white rounded-md hover:bg-sky-700 duration-200">View Event</button></a>
                     </div>
                 {% endfor %}
+            {% else %}
+                <p class="text-center">You have no upcoming events</p>
             {% endif %}
         </div>
     </section>
