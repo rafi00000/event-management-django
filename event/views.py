@@ -123,10 +123,11 @@ def addCategory(request):
 def event_detail(request, id):
     event = Event.objects.get(id=id)
     # total participant
-    all_participant = event.participants.all()
-    print(all_participant[0].email)
+    total_participants = event.participants.all()
     context = {
-        "event": event
+        "event": event,
+        "total_participants": total_participants,
+
     }
     return render(request, "event-detail.html", context)
 
@@ -194,3 +195,10 @@ def all_events(request):
     }
     return render(request, "data_temp/all_events.html", context)
 
+
+def remove_participant_from_event(request, event_id, user_id):
+    event = Event.objects.get(id=event_id)
+    user = User.objects.get(id=user_id)
+    event.participants.remove(user)
+    messages.success(request, "Participant removed successfully")
+    return redirect("event-detail", id=event_id)

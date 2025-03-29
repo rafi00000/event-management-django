@@ -1,7 +1,7 @@
 from django.urls import path
 from django.http import HttpResponse
 from event.views import organizer_dashboard, home, create_task, addCategory, update_task, delete_task, event_detail, rsvp_event, participant_dashboard, admin_dashboard, assign_role, create_group, group_list
-from event.views import all_events
+from event.views import all_events, remove_participant_from_event
 
 urlpatterns = [
     path("organizer-dashboard/",  organizer_dashboard, name="organizer-dashboard"),
@@ -18,4 +18,5 @@ urlpatterns = [
     path("admin/create-group/", create_group, name="create-group"),
     path("admin/group-list/", group_list, name="group-list"),
     path("all-events/", all_events, name="all-events"),
+    path("remove-participant/<int:event_id>/<int:user_id>/", remove_participant_from_event, name="remove-participant"),
 ]
