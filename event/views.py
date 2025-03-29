@@ -26,7 +26,7 @@ def home(request):
     }
     return render(request, "home.html", context)
 
-
+@login_required
 def organizer_dashboard(request):
     today = date.today()
     # total_participant = Participant.objects.aggregate(total=Count("id"))["total"]
@@ -55,6 +55,7 @@ def organizer_dashboard(request):
     }
     return render(request, "dashboards/organizer_dashboard.html", context)   
 
+@login_required
 def create_task(request):
     event_form = CreateEventForm()
     if request.method == "POST":
@@ -69,6 +70,7 @@ def create_task(request):
     }
     return render(request, "create-event.html", context)
 
+@login_required
 def update_task(request, id):
     event = Event.objects.get(id=id)
     event_form = CreateEventForm(instance=event)
@@ -83,6 +85,7 @@ def update_task(request, id):
     }
     return render(request, "create-event.html", context)
 
+@login_required
 def delete_task(request, id):
     if request.method == "POST":
         event = Event.objects.get(id=id)
@@ -106,7 +109,7 @@ def delete_task(request, id):
 #     }
 #     return render(request, "add_participant.html", context)
 
-
+@login_required
 def addCategory(request):
     addCateg = AddCategory()
     if request.method == "POST":
@@ -131,6 +134,7 @@ def event_detail(request, id):
     }
     return render(request, "event-detail.html", context)
 
+@login_required
 def rsvp_event(request, event_id):
     event = Event.objects.get(id=event_id)
     if request.user not in event.participants.all():
@@ -140,7 +144,7 @@ def rsvp_event(request, event_id):
         messages.warning(request, "You have already RSVP'd to this event")
     return redirect("home-page")
 
-
+@login_required
 def participant_dashboard(request):
     if request.user:
         participant_events = request.user.events.all()
@@ -151,6 +155,7 @@ def participant_dashboard(request):
     }
     return render(request, "dashboards/participant-dashboard.html", context)
 
+@login_required
 def admin_dashboard(request):
     users = User.objects.all()
     context = {
@@ -158,6 +163,7 @@ def admin_dashboard(request):
     }
     return render(request, "dashboards/admin-dashboard.html", context)
 
+@login_required
 def assign_role(request, user_id):
     user = User.objects.get(id=user_id)
     form = AssignRoleForm()
@@ -171,7 +177,7 @@ def assign_role(request, user_id):
             return redirect("admin-dashboard")
     return render(request, "dashboards/assign_role.html", {"form": form})
 
-
+@login_required
 def create_group(request):
     form = CreateGroupForm()
     if request.method == "POST":
@@ -182,7 +188,7 @@ def create_group(request):
             return redirect("create-group")
     return render(request, "dashboards/create_group.html", {"form": form})
 
-
+@login_required
 def group_list(request):
     groups = Group.objects.all()
     return render(request, "dashboards/group_list.html", {"groups": groups})
@@ -195,10 +201,32 @@ def all_events(request):
     }
     return render(request, "data_temp/all_events.html", context)
 
-
+@login_required
 def remove_participant_from_event(request, event_id, user_id):
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=user_id)
     event.participants.remove(user)
     messages.success(request, "Participant removed successfully")
     return redirect("event-detail", id=event_id)
+
+@login_required
+def remove_group(request, group_name):
+    group = Group.objects.get(name=group_name)
+    group.delete()
+    messages.success(request, f"Group {group_name} removed successfully")
+    return redirect("group-list")
+
+
+# role based dashboard
+@login_required
+# @permission_required('event.view_event', raise_exception=True)
+def role_based_dashboard(request):
+    if request.user.groups.filter(name='Organizer').exists():
+        return redirect('organizer-dashboard')
+    elif request.user.groups.filter(name='Participant').exists():
+        return redirect('participant-dashboard')
+    elif request.user.groups.filter(name='Admin').exists():
+        return redirect('admin-dashboard')
+    else:
+        messages.error(request, "You do not have access to any dashboard")
+        return redirect('home-page')

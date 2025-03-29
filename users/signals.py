@@ -36,7 +36,7 @@ def send_rsvp_email(sender, instance, action, pk_set, **kwargs):
 @receiver(post_save, sender=User)
 def assign_role(sender, instance, created, **kwargs):
     if created:
-        participant_group, created = Group.objects.get_or_create(name="Participant")
+        participant_group, _ = Group.objects.get_or_create(name="Participant")
         instance.groups.add(participant_group)
         instance.save()
 
