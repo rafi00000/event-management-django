@@ -91,19 +91,19 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://event_management_db_flx8_user:Ql3DJ1R3U9ShEH5BmhKD61M2dZMASf9T@dpg-cvjoib6uk2gs73a0oitg-a.oregon-postgres.render.com/event_management_db_flx8',
-        conn_max_age=600
-    )
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'event_management',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'admin1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432'
-    # }
+    # 'default': dj_database_url.config(
+    #     # Replace this value with your local database's connection string.
+    #     default='postgresql://event_management_db_flx8_user:Ql3DJ1R3U9ShEH5BmhKD61M2dZMASf9T@dpg-cvjoib6uk2gs73a0oitg-a.oregon-postgres.render.com/event_management_db_flx8',
+    #     conn_max_age=600
+    # )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_management',
+        'USER': 'postgres',
+        'PASSWORD': 'admin1234',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
 }
 
 # Password validation
@@ -133,7 +133,7 @@ CSRF_TRUSTED_ORIGIN = ["https://*.onrender.com", "http://127.0.0.1:8000"]
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 

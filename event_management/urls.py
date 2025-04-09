@@ -20,10 +20,11 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from event.views import home
 from django.conf.urls.static import static
 from django.conf import settings
+from event.views import HomeView
 
 
 urlpatterns = [
-    path("",  home, name="home-page"),
+    path("", HomeView.as_view(), name="home-page"),
     path('admin/', admin.site.urls),
     path("events/", include("event.urls")),
     path("users/", include("users.urls"))

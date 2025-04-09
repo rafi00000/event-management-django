@@ -8,67 +8,64 @@ from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Group
+from django.views.generic import DetailView, CreateView, View
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+
 
 
 
 # Create your views here.
 
-def home(request):
-    # getting default and search by event result for home view
-    query = request.GET.get('q', 'new')
-    if query == 'new':
-        search_event = Event.objects.select_related("category").all()
-    else:
-        search_event = search_event.filter(name__icontains=query).all()
-    
-    context = {
-        "search_event": search_event,
-    }
-    return render(request, "home.html", context)
+class HomeView(View):
+    def get(self, request):
+        query = request.GET.get('q', 'new')
+        if query == 'new':
+            search_event = Event.objects.select_related("category").all()
+        else:
+            search_event = Event.objects.select_related("category").filter(name__icontains=query)
 
-@login_required
-def organizer_dashboard(request):
-    today = date.today()
-    # total_participant = Participant.objects.aggregate(total=Count("id"))["total"]
-    total_events = Event.objects.count()
-    upcoming_events = Event.objects.filter(date__gt = today).count()
-    past_events = Event.objects.filter(date__lt=today).count()
+        context = {
+            "search_event": search_event,
+        }
+        return render(request, "home.html", context)
 
 
-    # getting data of events.
-    q = request.GET.get("q")
-    if q == "total_event":
-        today_events = Event.objects.select_related("category")
-    elif q == "upcoming_event":
-        today_events = Event.objects.select_related("category").filter(date__gt=today)
-    elif q == "past_event":
-        today_events = Event.objects.select_related("category").filter(date__lt=today)
-    else:
-        today_events = Event.objects.select_related("category").filter(date=today)
+@method_decorator(login_required, name='dispatch')
+class OrganizerDashboardView(View):
+    def get(self, request):
+        today = date.today()
+        q = request.GET.get("q")
 
-    context = {
-        "total_events": total_events,
-        "today_events": today_events,
-        # "participant_count": total_participant,
-        "upcoming_events": upcoming_events,
-        "past_events": past_events
-    }
-    return render(request, "dashboards/organizer_dashboard.html", context)   
+        if q == "total_event":
+            today_events = Event.objects.select_related("category")
+        elif q == "upcoming_event":
+            today_events = Event.objects.select_related("category").filter(date__gt=today)
+        elif q == "past_event":
+            today_events = Event.objects.select_related("category").filter(date__lt=today)
+        else:
+            today_events = Event.objects.select_related("category").filter(date=today)
 
-@login_required
-def create_task(request):
-    event_form = CreateEventForm()
-    if request.method == "POST":
-        event_form = CreateEventForm(request.POST, request.FILES)
-        if event_form.is_valid():
-            event_form.save()   
-            messages.success(request, "Event created Successfully")
-            return redirect("create-event")
-            
-    context = {
-        "event_form": event_form
-    }
-    return render(request, "create-event.html", context)
+        context = {
+            "total_events": Event.objects.count(),
+            "upcoming_events": Event.objects.filter(date__gt=today).count(),
+            "past_events": Event.objects.filter(date__lt=today).count(),
+            "today_events": today_events
+        }
+        return render(request, "dashboards/organizer_dashboard.html", context)
+
+
+@method_decorator(login_required, name='dispatch')
+class CreateEventView(CreateView):
+    model = Event
+    form_class = CreateEventForm
+    template_name = "create-event.html"
+    success_url = reverse_lazy("create-event")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Event created Successfully")
+        return super().form_valid(form)
+
 
 @login_required
 def update_task(request, id):
@@ -93,47 +90,33 @@ def delete_task(request, id):
         messages.success(request, "Event Deleted Successfully")
         return redirect("home-page")
 
+@method_decorator(login_required, name='dispatch')
+class AddCategoryView(View):
+    def get(self, request):
+        form = AddCategory()
+        return render(request, "addCategory.html", {"category_form": form})
 
-# def addParticipant(request):
-#     participant_form = AddParticipants()
-
-#     if request.method == "POST":
-#         participant_form = AddParticipants(request.POST)
-#         if participant_form.is_valid():
-#             participant_form.save()
-#             messages.success(request, "Participant Added")
-#             return redirect("add-participant")
-    
-#     context = {
-#         "add_participant_form" : participant_form
-#     }
-#     return render(request, "add_participant.html", context)
-
-@login_required
-def addCategory(request):
-    addCateg = AddCategory()
-    if request.method == "POST":
-        addCateg = AddCategory(request.POST)
-        if addCateg.is_valid():
-            addCateg.save()
+    def post(self, request):
+        form = AddCategory(request.POST)
+        if form.is_valid():
+            form.save()
             messages.success(request, "Successfully Added")
             return redirect("add-category")
-    context = {
-        "category_form": addCateg
-    }
-    return render(request, "addCategory.html", context)
+        return render(request, "addCategory.html", {"category_form": form})
 
-def event_detail(request, id):
-    event = Event.objects.get(id=id)
-    # total participant
-    total_participants = event.participants.all()
-    context = {
-        "event": event,
-        "total_participants": total_participants,
 
-    }
-    return render(request, "event-detail.html", context)
+class EventDetailView(DetailView):
+    model = Event
+    template_name = "event-detail.html"
+    context_object_name = "event"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event = self.object
+        total_participants = event.participants.all()
+        context["total_participants"] = total_participants
+        return context
+        
 @login_required
 def rsvp_event(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -217,9 +200,7 @@ def remove_group(request, group_name):
     return redirect("group-list")
 
 
-# role based dashboard
 @login_required
-# @permission_required('event.view_event', raise_exception=True)
 def role_based_dashboard(request):
     if request.user.groups.filter(name='Organizer').exists():
         return redirect('organizer-dashboard')
